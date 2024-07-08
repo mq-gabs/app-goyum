@@ -23,6 +23,8 @@ export default function Login() {
       },
     });
 
+    if (!response) return;
+
     saveCredentials(response);
 
     navitation("/");

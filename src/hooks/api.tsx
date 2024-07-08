@@ -2,12 +2,16 @@ import axios from "axios";
 import { useState } from "react";
 import { toast } from "react-toastify";
 import { useStore } from "./user";
+import { useNavigate } from "react-router-dom";
 
 const instance = axios.create({
   baseURL: "http://localhost:5000",
 });
 
 export function useApi() {
+  const { signOut } = useStore();
+  const nav = useNavigate();
+
   const [loading, setLoading] = useState<boolean>(false);
 
   const { data: storeData } = useStore();
@@ -37,6 +41,15 @@ export function useApi() {
 
       return data;
     } catch (error: any) {
+      if (error?.response?.status === 403) {
+        signOut();
+        toast('Faça login para continuar', {
+          type: 'warning',
+        });
+        nav('/login');
+        return;
+      }
+
       const message = error?.response?.data?.message || "Algo deu errado";
 
       toast(message, {
