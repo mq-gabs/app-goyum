@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { TStore } from "../utils/type";
 import StoreItem from "../components/StoreItem";
 import Loading from "../components/Loading";
+import Logo from "../../public/logo.svg";
 
 export default function PublicHome() {
   const [fetch, loading] = useApi();
@@ -28,7 +29,12 @@ export default function PublicHome() {
     <div>
       <header className="p-4 bg-sec">
         <div className="flex justify-between max-w-[1000px] m-auto">
-          <div className="text-5xl font-bold text-prim">GoYum</div>
+          <div className="text-5xl font-bold text-prim flex gap-2 items-center">
+            <div className="w-[60px]">
+              <img src={Logo} alt="Logo" />
+            </div>
+            GoYum
+          </div>
           <div className="my-auto">
             <nav>
               <ul className="text-oversec flex gap-8 text-xl">
