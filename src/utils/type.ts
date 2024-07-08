@@ -7,6 +7,8 @@ export type TProduct = {
   is_active: boolean;
 };
 
+export type TCartItem = TProduct & { quantity: number };
+
 export type TStore = {
   id: string;
   name: string;
