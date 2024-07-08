@@ -2,8 +2,8 @@ import { Route, Routes } from "react-router-dom";
 import NotFound from "../pages/NotFound";
 import PrivateHome from "../pages/private/PrivateHome";
 import Products from "../pages/private/Products";
-import Menu from "../components/Menu";
-import MobileMenu from "../components/MobileMenu";
+import Menu from "../components/private/Menu";
+import MobileMenu from "../components/private/MobileMenu";
 import NewProduct from "../pages/private/NewProduct";
 import Orders from "../pages/private/Orders";
 

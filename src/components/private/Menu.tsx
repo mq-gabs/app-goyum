@@ -2,9 +2,9 @@ import { AiFillProduct } from "react-icons/ai";
 import { GoListOrdered } from "react-icons/go";
 import { MdHome } from "react-icons/md";
 import { Link, useNavigate } from "react-router-dom";
-import Button from "./Button";
+import Button from "../Button";
 import { FaSignOutAlt } from "react-icons/fa";
-import { useStore } from "../hooks/user";
+import { useStore } from "../../hooks/user";
 
 const routesList = [
   {

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useApi } from "../../hooks/api";
 import { TProduct } from "../../utils/type";
 import Loading from "../../components/Loading";
-import ProductItem from "../../components/ProductItem";
+import ProductItem from "../../components/private/ProductItem";
 import { Link } from "react-router-dom";
 import { IoBagAddSharp } from "react-icons/io5";
 import Input from "../../components/Input";

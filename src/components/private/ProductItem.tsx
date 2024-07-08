@@ -1,7 +1,7 @@
-import { formatCurrency } from "../utils/functions";
-import { TProduct } from "../utils/type";
-import NoImage from "./NoImage";
-import Switch from "./Switch";
+import { formatCurrency } from "../../utils/functions";
+import { TProduct } from "../../utils/type";
+import NoImage from "../NoImage";
+import Switch from "../Switch";
 
 export default function ProductItem({
   data: { name, description, is_active, price },
