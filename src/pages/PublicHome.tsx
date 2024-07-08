@@ -4,6 +4,7 @@ import { useApi } from "../hooks/api";
 import { useEffect, useState } from "react";
 import { TStore } from "../utils/type";
 import StoreItem from "../components/StoreItem";
+import Loading from "../components/Loading";
 
 export default function PublicHome() {
   const [fetch, loading] = useApi();
@@ -60,6 +61,18 @@ export default function PublicHome() {
                 </li>
               ))}
             </ul>
+          )}
+          {stores.length === 0 && !loading && (
+            <div className="p-4">
+              <p className="text-soft text-center text-xl">
+                Nenhuma loja encontrada...
+              </p>
+            </div>
+          )}
+          {loading && (
+            <div className="flex justify-center text-text">
+              <Loading />
+            </div>
           )}
         </div>
       </main>

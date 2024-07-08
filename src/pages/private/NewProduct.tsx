@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { useApi } from "../../hooks/api";
 import Loading from "../../components/Loading";
 import { toast } from "react-toastify";
+import { FaArrowLeft } from "react-icons/fa";
 
 type TCreateProduct = {
   name: string;
@@ -75,7 +76,12 @@ export default function NewProduct() {
           />
           <div className="flex justify-between">
             <Button type="cancel" onClick={() => nav("/produtos")}>
-              Voltar
+              <div className="flex gap-2 items-center">
+                <div>
+                  <FaArrowLeft />
+                </div>
+                Voltar
+              </div>
             </Button>
             <Button disabled={loading} onClick={handleSaveProduct}>
               <div className="flex gap-2 items-center">

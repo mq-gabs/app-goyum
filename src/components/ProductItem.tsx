@@ -11,7 +11,7 @@ export default function ProductItem({
   data: TProduct;
 }) {
   return (
-    <div className="flex gap-2 border rounded p-2 text-text">
+    <div className="flex gap-2 border rounded p-4 text-text">
       <div>
         <NoImage />
       </div>
