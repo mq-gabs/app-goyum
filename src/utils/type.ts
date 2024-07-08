@@ -6,3 +6,10 @@ export type TProduct = {
   price: number;
   is_active: boolean;
 };
+
+export type TStore = {
+  id: string;
+  name: string;
+  description: string;
+  nick: string;
+};
