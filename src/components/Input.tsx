@@ -20,7 +20,7 @@ export default function Input({
 }) {
   return (
     <div className="relative">
-      <label htmlFor={id} className="block text-oversec">
+      <label htmlFor={id} className="block text-text">
         {label}
       </label>
       <input
