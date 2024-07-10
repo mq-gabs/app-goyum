@@ -5,7 +5,7 @@ import { useStore } from "./user";
 import { useNavigate } from "react-router-dom";
 
 const instance = axios.create({
-  baseURL: "http://localhost:5000",
+  baseURL: "http://192.168.1.7:5000",
 });
 
 export function useApi() {
@@ -43,10 +43,10 @@ export function useApi() {
     } catch (error: any) {
       if (error?.response?.status === 403) {
         signOut();
-        toast('Faça login para continuar', {
-          type: 'warning',
+        toast("Faça login para continuar", {
+          type: "warning",
         });
-        nav('/login');
+        nav("/login");
         return;
       }
 

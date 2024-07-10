@@ -5,6 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import Button from "../Button";
 import { FaSignOutAlt } from "react-icons/fa";
 import { useStore } from "../../hooks/user";
+import LogoHome from "../LogoHome";
 
 const routesList = [
   {
@@ -38,7 +39,9 @@ export default function Menu() {
 
   return (
     <div className="flex flex-col p-2 justify-between h-full">
-      <div>A</div>
+      <div>
+        <LogoHome />
+      </div>
       <nav>
         <ul className="flex flex-col gap-2">
           {routesList.map(({ id, name, route, Icon }) => (

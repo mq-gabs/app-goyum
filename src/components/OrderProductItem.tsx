@@ -22,20 +22,22 @@ export default function OrderProductItem({
       </div>
       <div className="w-full flex flex-col justify-between">
         <div>
-          <div className="flex justify-between gap-2">
-            <p className="font-semibold">{name}</p>
+          <p className="font-semibold">{name}</p>
+          <p className="text-sm">{description}</p>
+        </div>
+        <div className="flex justify-between gap-2">
+          <div>
             <p>{formatCurrency(price)}</p>
           </div>
-          <p>{description}</p>
-        </div>
-        <div className="flex justify-end gap-2">
-          <Button onClick={onRemove} disabled={quantity === 0}>
-            <MdOutlineRemove />
-          </Button>
-          <p className="my-auto">{quantity}</p>
-          <Button onClick={onAdd}>
-            <MdOutlineAdd />
-          </Button>
+          <div className="flex gap-2">
+            <Button onClick={onRemove} disabled={quantity === 0}>
+              <MdOutlineRemove />
+            </Button>
+            <p className="my-auto text-sm">{quantity}</p>
+            <Button onClick={onAdd}>
+              <MdOutlineAdd />
+            </Button>
+          </div>
         </div>
       </div>
     </div>

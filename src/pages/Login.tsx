@@ -5,6 +5,8 @@ import { Link, useNavigate } from "react-router-dom";
 import Loading from "../components/Loading";
 import { useApi } from "../hooks/api";
 import { useStore } from "../hooks/user";
+import Logo from "../components/Logo";
+import LogoHome from "../components/LogoHome";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -32,7 +34,10 @@ export default function Login() {
 
   return (
     <main className="grid place-items-center h-screen p-4 bg-backg">
-      <div className="p-4 border rounded border-soft">
+      <div className="p-4 border rounded border-soft w-full max-w-[350px]">
+        <div className="flex justify-center">
+          <LogoHome />
+        </div>
         <form className="flex flex-col gap-4">
           <Input
             id="email"
@@ -61,9 +66,9 @@ export default function Login() {
               </div>
             </Button>
 
-            <p className="text-center text-soft">ou</p>
+            <p className="text-center text-soft text-sm">ou</p>
 
-            <Link to="/registrar" className="text-center underline">
+            <Link to="/registrar" className="text-center text-sm underline">
               Crie sua conta
             </Link>
           </div>

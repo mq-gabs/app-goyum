@@ -26,7 +26,7 @@ export default function Button({
   return (
     <button
       onClick={handleClick}
-      className={clsx(" px-2 py-2 rounded uppercase font-semibold", {
+      className={clsx(" px-2 py-2 rounded uppercase font-semibold text-sm", {
         "bg-soft text-overprim cursor-default": disabled,
         "bg-prim text-overprim": !disabled && type === "ok",
         "bg-overprim text-prim": !disabled && type === "inverted_ok",

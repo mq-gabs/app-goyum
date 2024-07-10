@@ -7,13 +7,17 @@ import { IoCart } from "react-icons/io5";
 import Button from "../components/Button";
 import Loading from "../components/Loading";
 import Cart from "../components/Cart";
+import LogoHome from "../components/LogoHome";
+import { useParams } from "react-router-dom";
 
-function getStoreItemsTag(id: string) {
-  return `@cart:store-${id}`;
+export function getStoreItemsTag(id: string) {
+  return `@goyum:cart:store-${id}`;
 }
 
 export default function MakeOrder() {
   const [fetch, loading] = useApi();
+
+  const { id } = useParams();
 
   const [products, setProducts] = useState<TProduct[]>([]);
   const [store, setStore] = useState<TStore>({} as TStore);
@@ -22,7 +26,7 @@ export default function MakeOrder() {
 
   const [openCart, setOpenCart] = useState<boolean>(false);
 
-  const getDataById = async (id: string) => {
+  const getDataById = async () => {
     const response = await fetch({
       path: `products/${id}`,
     });
@@ -80,13 +84,17 @@ export default function MakeOrder() {
     toast("Este item já foi removido!", { type: "warning" });
   };
 
+  useEffect(() => {
+    if (store.id) {
+      localStorage.setItem(getStoreItemsTag(store.id), JSON.stringify(cart));
+    }
+  }, [cart]);
+
   const handleClearCart = () => {
     setCart([]);
   };
 
   useEffect(() => {
-    const id = window.location.pathname.split("/")[2];
-
     if (!id) {
       toast("Id não encontrado!", { type: "error" });
       return;
@@ -98,20 +106,21 @@ export default function MakeOrder() {
 
     setCart(storageCardData);
 
-    getDataById(id);
+    getDataById();
   }, []);
 
   return (
     <div>
       <header className="bg-sec p-4">
-        <div className="max-w-[1000px] mx-auto">
-          <p className="text-oversec text-center text-3xl">
+        <div className="max-w-[1000px] mx-auto flex justify-between items-center">
+          <LogoHome />
+          <p className="text-oversec text-center text-xl sm:text-2xl">
             {store?.name || "Loja..."}
           </p>
         </div>
       </header>
       <main className="max-w-[1000px] mx-auto p-2">
-        <h3 className="text-xl font-semibold mb-4">Produtos:</h3>
+        <h3 className="text-xl font-semibold mb-4">Items:</h3>
 
         <div className="fixed bottom-4 right-4">
           <div>
@@ -156,13 +165,14 @@ export default function MakeOrder() {
         </div>
 
         {openCart && (
-          <div className="absolute top-0 bottom-0 right-0 left-0 bg-backg">
+          <div className="fixed top-0 bottom-0 right-0 left-0 bg-backg">
             <Cart
               data={cart}
               onClose={() => setOpenCart(false)}
               onAdd={handleAddProduct}
               onRemove={handleRemoveProduct}
               onClear={handleClearCart}
+              storeId={id}
             />
           </div>
         )}

@@ -13,15 +13,20 @@ export default function StoreItem({
       <div>
         <NoImage />
       </div>
-      <div className="flex gap-2  w-full justify-between items-center">
-        <div className="h-full">
-          <p className="font-bold text-xl">{name}</p>
+      <div className="flex flex-col gap-2  w-full justify-between ">
+        <div>
+          <Link
+            to={`/p/${id}`}
+            className="font-bold text-xl hover:underline text-sec"
+          >
+            {name}
+          </Link>
           <p className="text-sm">{description}</p>
         </div>
-        <div>
-          <div className="bg-prim rounded text-overprim p-2">
+        {/* <div className="border border-red-500">
+          <div className="bg-prim rounded text-overprim">
             <Link to={`/p/${id}`}>
-              <div className="flex gap-2 items-center">
+              <div className="flex gap-2 items-center p-2">
                 Fazer pedido
                 <div>
                   <FaArrowRight />
@@ -29,7 +34,7 @@ export default function StoreItem({
               </div>
             </Link>
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   );

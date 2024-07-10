@@ -1,8 +1,13 @@
-import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
-import { TCartItem, TProduct } from "../utils/type";
+import { FaArrowLeft } from "react-icons/fa";
+import { TCartItem, TCustomerInfo, TProduct } from "../utils/type";
 import Button from "./Button";
-import OrderProductItem from "./OrderProductItem";
-import { formatCurrency } from "../utils/functions";
+import { useState } from "react";
+import CartList from "./CartList";
+import CustomerInfoForm from "./CustomerInfoForm";
+import FinalCartStep from "./FinalCartStep";
+import Loading from "./Loading";
+import { toast } from "react-toastify";
+import { useApi } from "../hooks/api";
 
 export default function Cart({
   data,
@@ -10,68 +15,114 @@ export default function Cart({
   onAdd,
   onRemove,
   onClear,
+  storeId,
 }: {
   data: TCartItem[];
   onClose: () => void;
   onRemove: (data: TProduct) => void;
   onAdd: (data: TProduct) => void;
   onClear: () => void;
+  storeId?: string;
 }) {
+  const [step, setStep] = useState<"products" | "info" | "final" | "ordering">(
+    "products"
+  );
+  const [customerInfo, setCustomerInfo] = useState<TCustomerInfo>(
+    {} as TCustomerInfo
+  );
   const total = data.reduce((acc, curr) => acc + curr.quantity * curr.price, 0);
+
+  const [fetch] = useApi();
+
+  const handleExtractCustomerInfo = (data: TCustomerInfo) => {
+    setCustomerInfo(data);
+    setStep("final");
+  };
+
+  const handleConfirmOrder = async (observations: string) => {
+    if (data.length === 0) {
+      toast("O carrinho está vazio", { type: "warning" });
+      return;
+    }
+
+    if (!storeId) {
+      toast("Loja não localizada!", { type: "error" });
+      return;
+    }
+
+    setStep("ordering");
+
+    const response = await fetch({
+      path: `/orders/${storeId}`,
+      body: {
+        observations,
+        products: data,
+        client_info: customerInfo,
+      },
+      method: "POST",
+    });
+
+    setStep("final");
+
+    if (!response) return;
+
+    toast(response?.message, { type: "success" });
+
+    onClear();
+    onClose();
+
+    setTimeout(() => {
+      window.open(`/pedidos/${response?.id}`, "_blank");
+    }, 1000);
+  };
 
   return (
     <div>
       <div className="max-w-[1000px] mx-auto p-4">
         <div className="mb-2 flex justify-between gap-2">
-          <Button type="inverted_cancel" onClick={onClose}>
-            <div className="flex gap-2 items-center">
-              <FaArrowLeft />
-              Voltar
-            </div>
-          </Button>
-          <Button onClick={onClear} type="inverted_danger">
-            Esvaziar carrinho
-          </Button>
-        </div>
-        <div className="mb-4">
-          <h3 className="text-xl font-semibold">Veja seus items:</h3>
+          {step !== "ordering" && (
+            <Button type="inverted_cancel" onClick={onClose}>
+              <div className="flex gap-2 items-center">
+                <FaArrowLeft />
+                Ver produtos
+              </div>
+            </Button>
+          )}
+          {step === "products" && (
+            <Button onClick={onClear} type="inverted_danger">
+              Esvaziar carrinho
+            </Button>
+          )}
         </div>
         <div>
-          {data?.length !== 0 && (
-            <ul className="flex flex-col gap-2">
-              {data.map((d) => (
-                <li>
-                  <OrderProductItem
-                    data={d}
-                    onAdd={() => onAdd(d)}
-                    onRemove={() => onRemove(d)}
-                    quantity={d.quantity}
-                  />
-                </li>
-              ))}
-            </ul>
+          {step === "products" && (
+            <CartList
+              data={data}
+              onAdd={onAdd}
+              onRemove={onRemove}
+              onContinue={() => setStep("info")}
+              total={total}
+            />
           )}
-          {data.length === 0 && (
-            <div className="p-4">
-              <p className="text-soft text-xl text-center">
-                Seu carrinho está vazio...
-              </p>
+          {step === "info" && (
+            <CustomerInfoForm
+              onBack={() => setStep("products")}
+              onExtract={handleExtractCustomerInfo}
+            />
+          )}
+          {step === "final" && (
+            <FinalCartStep
+              data={data}
+              total={total}
+              onBack={() => setStep("info")}
+              onOrder={handleConfirmOrder}
+            />
+          )}
+          {step === "ordering" && (
+            <div className="flex justify-center p-8">
+              <Loading />
             </div>
           )}
-        </div>
-        <div className="flex justify-end py-2">
-          <p className="text-xl">
-            TOTAL:{"  "}
-            <span className="font-bold text-sec">{formatCurrency(total)}</span>
-          </p>
-        </div>
-        <div className="flex justify-end">
-          <Button disabled={data.length === 0}>
-            <div className="flex gap-2 items-center">
-              Continuar
-              <FaArrowRight />
-            </div>
-          </Button>
         </div>
       </div>
     </div>

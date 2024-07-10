@@ -15,3 +15,13 @@ export type TStore = {
   description: string;
   nick: string;
 };
+
+export type TCustomerInfo = {
+  name: string;
+  contact: string;
+  address: {
+    street: string;
+    number: number;
+    neighborhood: string;
+  };
+};

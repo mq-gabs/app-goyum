@@ -26,6 +26,7 @@ const routesList = [
 ];
 
 export default function MobileMenu() {
+  console.log(window.location.pathname);
   return (
     <div className="fixed bottom-0 w-full">
       <div className="p-2 bg-prim">
@@ -40,7 +41,7 @@ export default function MobileMenu() {
                     "text-overprim": window.location.pathname !== route,
                   })}
                 >
-                  <Icon className="text-2xl" />
+                  <Icon className="text-3xl" />
                 </Link>
               </li>
             ))}
