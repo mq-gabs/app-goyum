@@ -72,7 +72,7 @@ export default function Cart({
     onClose();
 
     setTimeout(() => {
-      window.open(`/pedidos/${response?.id}`, "_blank");
+      window.open(`/pedido/${response?.id}`, "_blank");
     }, 1000);
   };
 
