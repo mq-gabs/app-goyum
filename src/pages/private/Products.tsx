@@ -38,7 +38,7 @@ export default function Products() {
   };
 
   return (
-    <main className="p-2 bg">
+    <main className="p-2 bg overflow-y-auto h-screen">
       <div className="flex justify-between p-2">
         <h1 className="text-xl font-bold uppercase text-text">Produtos</h1>
         <Link to="/produtos/novo">

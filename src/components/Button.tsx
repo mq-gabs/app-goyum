@@ -16,7 +16,8 @@ export default function Button({
     | "cancel"
     | "inverted_danger"
     | "inverted_ok"
-    | "inverted_cancel";
+    | "inverted_cancel"
+    | "success";
 }) {
   const handleClick = (e: any) => {
     e.preventDefault();
@@ -34,6 +35,7 @@ export default function Button({
         "bg-overprim text-red-500": !disabled && type === "inverted_danger",
         "bg-gray-600 text-overprim": !disabled && type === "cancel",
         "bg-overprim text-gray-600": !disabled && type === "inverted_cancel",
+        "bg-green-400 text-overprim": !disabled && type === "success",
       })}
     >
       {children}

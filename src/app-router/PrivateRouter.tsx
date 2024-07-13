@@ -6,6 +6,7 @@ import Menu from "../components/private/Menu";
 import MobileMenu from "../components/private/MobileMenu";
 import NewProduct from "../pages/private/NewProduct";
 import Orders from "../pages/private/Orders";
+import ViewOrder from "../pages/private/VIewOrder";
 
 export default function PrivateRouter() {
   return (
@@ -21,6 +22,7 @@ export default function PrivateRouter() {
           <Route path="/produtos" element={<Products />} />
           <Route path="/produtos/novo" element={<NewProduct />} />
           <Route path="/pedidos" element={<Orders />} />
+          <Route path="/pedidos/:id" element={<ViewOrder />} />
           <Route path="/" element={<PrivateHome />} />
           <Route path="*" element={<NotFound />} />
         </Routes>

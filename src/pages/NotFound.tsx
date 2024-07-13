@@ -1,6 +1,8 @@
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export default function NotFound() {
+  const nav = useNavigate();
+
   return (
     <main className="grid place-items-center h-screen">
       <div>
@@ -11,9 +13,12 @@ export default function NotFound() {
           A página que você tentou acessar não existe
         </p>
         <div className="text-center">
-          <Link to="/" className="underline text-soft hover:text-prim w-full">
+          <p
+            onClick={() => nav(-1)}
+            className="underline text-soft hover:text-prim w-full"
+          >
             Voltar
-          </Link>
+          </p>
         </div>
       </div>
     </main>

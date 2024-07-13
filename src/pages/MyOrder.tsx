@@ -83,7 +83,8 @@ export default function MyOrder() {
                 <div className="flex justify-between">
                   <p>{item.name}</p>
                   <p>
-                    {formatCurrency(item.price)} x {item.quantity}
+                    {formatCurrency(item.price)} x {item.quantity} ={" "}
+                    {formatCurrency(item.price * item.quantity)}
                   </p>
                 </div>
               </li>

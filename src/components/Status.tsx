@@ -36,12 +36,15 @@ const statusTexts = {
 export default function Status({ status }: { status: EStatus }) {
   const statusData = statusTexts[status];
 
+  console.log({ status });
+
   return (
     <div
       className={clsx(
-        `flex gap-2 items-center text-xl animate-pulse rounded p-1 text-overprim ${statusData.color}`,
+        `flex gap-1 items-center rounded p-1 text-overprim ${statusData.color}`,
         {
-          "animate-none": status === "done" || status === "cancelled",
+          "animate-none": ["done", "cancelled"].includes(status),
+          "animate-pulse": !["done", "cancelled"].includes(status),
         }
       )}
     >

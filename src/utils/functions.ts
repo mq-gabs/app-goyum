@@ -12,3 +12,15 @@ export function formatCurrency(value: number) {
 
   return `R$ ${formattedValue}`;
 }
+
+export function formatDate(value: string) {
+  const dateTime = new Date(
+    new Date(value).getTime() - 3 * 60 * 60 * 1000
+  ).toJSON();
+
+  const [date, time] = dateTime.split("T");
+  const [year, month, day] = date.split("-");
+  const [hours, minutes] = time.split(":");
+
+  return `${day}/${month}/${year} às ${hours}:${minutes}`;
+}
